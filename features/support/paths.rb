@@ -19,7 +19,13 @@ module NavigationHelpers
       '/admin/content/new'
 
     when /^the login page$/
-      '/accounts/login'
+     '/accounts/login'
+
+   when /^the new categories page$/ then  
+    '/admin/categories/new'
+
+   when /^the edit categories page with id "(.+)"$/ then
+     "/admin/categories/edit/#{$1}"
 
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
