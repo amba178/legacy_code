@@ -29,7 +29,7 @@ class Admin::CategoriesController < Admin::BaseController
     #calling edit will execute it.
     if !params[:id].nil?
       @category = Category.find(params[:id])
-      @category.attributes = params[:category]
+      @category.update_attributes(params[:category])
     end
 
     if request.post?
