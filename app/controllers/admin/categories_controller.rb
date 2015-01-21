@@ -57,7 +57,7 @@ class Admin::CategoriesController < Admin::BaseController
   def save_category
     if @category.new_record? && @category.save!
       flash[:notice] = _('Category was successfully created!')
-    elsif @category.update_attributes!(params[:category])
+    elsif !@category.new_record? && @category.update_attributes!(params[:category])
        flash[:notice] =  _('Category was successfully updated!')
     else
       flash[:error] = _('Category could not be saved.')
