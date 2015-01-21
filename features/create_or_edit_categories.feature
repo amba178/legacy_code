@@ -12,6 +12,7 @@ Scenario: adding a new category and editing it
 	And I fill in "category_permalink" with "specific man"
 	And I fill in "category_description" with "awesome"
 	And I press "Save"
+	Then I should see "Category was successfully created!"
 	Then I should be on the new categories page
 	When I follow "Specific Man"
 	Then I should be on the edit categories page with id "2"
@@ -24,10 +25,12 @@ Scenario: adding a new category and editing it
     Then I should be on the edit categories page with id "2"
     And I fill in "category_name" with "Specific 2"
     And I press "Save"
+    Then I should see "Category was successfully updated!"
     When I follow "Specific 2"
     Then I should be on the edit categories page with id "2"
     Then I should see "Specific 2"
     Then I should not see "Specific Man"
+    
 
 
 
