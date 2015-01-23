@@ -23,4 +23,4 @@ public/cache/*
 .rbenv-version
 bin/
 .bundle/
-*.txt 
+/login_info.txt 
