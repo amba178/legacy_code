@@ -94,6 +94,14 @@ class Article < Content
 
   include Article::States
 
+  #merging two articles
+  def self.merge_with(id, merg_id)
+    body1 = self.get_or_build_article(id).body
+    body2 = self.get_or_build_article(merg_id).body 
+    return " " 
+  end 
+
+
   class << self
     def last_draft(article_id)
       article = Article.find(article_id)

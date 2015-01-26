@@ -141,17 +141,22 @@ class Admin::ContentController < Admin::BaseController
 
   def new_or_edit
     id = params[:id]
+    #find the id for query attributes 
     id = params[:article][:id] if params[:article] && params[:article][:id]
+    #getting the objects from the database assuming exist 
+  
     @article = Article.get_or_build_article(id)
     @article.text_filter = current_user.text_filter if current_user.simple_editor?
-
+    
+    @article.  = "salem 23"
+    
     @post_types = PostType.find(:all)
     if request.post?
       if params[:article][:draft]
         get_fresh_or_existing_draft_for_article
       else
         if not @article.parent_id.nil?
-          @article = Article.find(@article.parent_id)
+          @article = Article.find(@article.parent_id) 
         end
       end
     end

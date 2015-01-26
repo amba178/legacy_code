@@ -3,4 +3,10 @@
 
   <%= render :partial => "form" %>
 
+  <div class=''>
+  <% if params[:action] =='edit' && current_user %>
+   <%= render 'merge' %>
+  <% end %>
+  </div> 
+
 <% end %>
