@@ -2,11 +2,4 @@
 <%= form_tag(form_action, :id => "#{form_type}_form", :enctype => "multipart/form-data", :class => className) do %>
 
   <%= render :partial => "form" %>
-
-  <div class=''>
-  <% if params[:action] =='edit' && current_user %>
-   <%= render 'merge' %>
-  <% end %>
-  </div> 
-
-<% end %>
+<% end %> 

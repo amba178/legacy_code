@@ -148,10 +148,12 @@ class Admin::ContentController < Admin::BaseController
     @article = Article.get_or_build_article(id)
     @article.text_filter = current_user.text_filter if current_user.simple_editor?
     
-    @article.  = "salem 23"
+   
+    
     
     @post_types = PostType.find(:all)
     if request.post?
+      
       if params[:article][:draft]
         get_fresh_or_existing_draft_for_article
       else
@@ -163,14 +165,41 @@ class Admin::ContentController < Admin::BaseController
 
     @article.keywords = Tag.collection_to_string @article.tags
     @article.attributes = params[:article]
+  
+
     # TODO: Consider refactoring, because double rescue looks... weird.
-        
+
+    #merging two articles
+     if !params[:id].blank? && !params[:merge_with].blank?
+       unless current_user.admin?
+        flash[:error] = _("You are not permitted to merge articles buddy!")
+        redirct_to :action => :index
+       return 
+      end 
+      
+      if !Article.find_by_id(params[:merge_with]).nil? && params[:id] != params[:merge_with]
+        @article = @article.merge_with(params[:merge_with])
+        flash[:notice] = _('Article was successfully merged!')
+        redirect_to :action => :index 
+        return 
+      elsif params[:id] == params[:merge_with]
+        flash[:error] = _("You can't perform merging with same id number")
+        redirect_to :action => :edit , :id => params[:id]
+        return 
+      else
+        flash[:error] = _("Oops something wrong check the article if its exists!")
+        redirect_to :action => :edit, :id => params[:id]
+        return 
+      end
+    end
+      
+    
+   
     @article.published_at = DateTime.strptime(params[:article][:published_at], "%B %e, %Y %I:%M %p GMT%z").utc rescue Time.parse(params[:article][:published_at]).utc rescue nil
 
     if request.post?
       set_article_author
-      save_attachments
-      
+      save_attachments 
       @article.state = "draft" if @article.draft
 
       if @article.save
@@ -245,4 +274,21 @@ class Admin::ContentController < Admin::BaseController
   def setup_resources
     @resources = Resource.by_created_at
   end
+  
+  def merge_with
+    unless current_user.admin?
+      flash[:error] = _("You are not allowed to perform a merge action")
+      redirct_to :cation => :index
+      return 
+    end
+     @article = Article.find_by_id(params[:id])
+    if @article.merge_with(params[:merge_with])
+      flash[:notice] = _("Articles successfully merged!")
+      redirect_to :action => :index
+    else
+      flash[:notice] = _("Articles couldn't be merged")
+      redirect_to :action => :edit, :id => params[:id]
+    end
+  end
+
 end

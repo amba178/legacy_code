@@ -147,7 +147,11 @@
       <%= render 'admin/content/attachment', { :attachment_num => 1, :hidden => false } -%>
     </ul>
   </div>  
-   
+  <div class=''>
+  <% if params[:action]=='edit' %>
+   <%= render 'merge'  %>
+  <% end %>
+  </div>  
   </div>
 
 </div>

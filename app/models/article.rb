@@ -95,10 +95,17 @@ class Article < Content
   include Article::States
 
   #merging two articles
-  def self.merge_with(id, merg_id)
-    body1 = self.get_or_build_article(id).body
-    body2 = self.get_or_build_article(merg_id).body 
-    return " " 
+  def merge_with(id)
+    other_article = Article.find_by_id(id)
+    if other_article 
+      new_body =  body + other_article.body.prepend(" ")
+      new_comments = comments  + other_article.comments 
+      update_attribute(:body, new_body)
+      update_attribute(:comments, new_comments)
+      self.reload 
+      other_article.delete
+    end
+    self 
   end 
 
 

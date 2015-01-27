@@ -2621,3 +2621,6 @@ a.thumbnail:hover {
   border-color: #ddd;
   border-color: rgba(0, 0, 0, 0.15);
 }
+footer #footer {
+  text-align: center;
+}
