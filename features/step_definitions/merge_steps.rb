@@ -6,5 +6,5 @@ end
 
 Then /^the article "(.*?)" should have body "(.*?)"$/ do |title, body|
   #pending # express the regexp above with the code you wish you had
-  Article.find_by_title(title).body.should == body  
+  Article.find_by_title(title).body.should eq(body) 
 end

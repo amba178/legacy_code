@@ -9,10 +9,13 @@ Feature: Merge Articles
     And the following articles exist
     | id	|	title		  |	  body			        |
     | 2		|	Foobar		| 	LoremIpsum        |
-    | 3		|	Foobar 2	| 	salem             |
+    | 3		|	Foobar 2	| 	LoremIpsum 2      |
   Scenario: Successfully merge articles
     Given I am on the article page for "Foobar"
-    And I fill in "merge_with" with "3" 
+    And show me the page 
+    And I fill in "merge_with" with "3"
     And I press "Merge"
-    Then the article "Foobar" should have body "LoremIpsum salem"
+    Given I am on the article page for "Foobar"
+    And show me the page 
+    Then the article "Foobar" should have body "LoremIpsum LoremIpsum 2"
 
