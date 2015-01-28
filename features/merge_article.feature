@@ -7,9 +7,9 @@ Feature: Merge Articles
     Given the blog is set up
     And I am logged into the admin panel
     And the following articles exist
-    | id	|	title		  |	  body			        |
-    | 2		|	Foobar		| 	LoremIpsum        |
-    | 3		|	Foobar 2	| 	LoremIpsum 2      |
+    | id|	title|	  body|
+    | 2	|	Foobar| 	LoremIpsum|
+    | 3	|	Foobar 2| 	LoremIpsum 2|
   Scenario: Successfully merge articles
     Given I am on the article page for "Foobar"
     And show me the page 
