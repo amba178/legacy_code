@@ -180,7 +180,7 @@ class Admin::ContentController < Admin::BaseController
       if !Article.find_by_id(params[:merge_with]).nil? && params[:id] != params[:merge_with]
         @article = @article.merge_with(params[:merge_with])
         flash[:notice] = _('Article was successfully merged!')
-        redirect_to :action => :index 
+        redirect_to :action => :edit , :id => params[:id]
         return 
       elsif params[:id] == params[:merge_with]
         flash[:error] = _("You can't perform merging with same id number")
