@@ -170,25 +170,26 @@ class Admin::ContentController < Admin::BaseController
     # TODO: Consider refactoring, because double rescue looks... weird.
 
     #merging two articles
-     if !params[:id].blank? && !params[:merge_with].blank?
-       unless current_user.admin?
-        flash[:error] = _("You are not permitted to merge articles buddy!")
-        redirct_to :action => :index
-       return 
-      end 
+     if !params[:id].blank? && !params[:merge_with].blank? 
+      if current_user.admin?
       
-      if !Article.find_by_id(params[:merge_with]).nil? && params[:id] != params[:merge_with]
-        @article = @article.merge_with(params[:merge_with])
-        flash[:notice] = _('Article was successfully merged!')
-        redirect_to :action => :edit , :id => params[:id]
-        return 
-      elsif params[:id] == params[:merge_with]
-        flash[:error] = _("You can't perform merging with same id number")
-        redirect_to :action => :edit , :id => params[:id]
-        return 
+        if !Article.find_by_id(params[:merge_with]).nil? && params[:id] != params[:merge_with]
+          @article = @article.merge_with(params[:merge_with])
+          flash[:notice] = _('Article was successfully merged!')
+          redirect_to :action => :edit , :id => params[:id]
+          return 
+        elsif params[:id] == params[:merge_with]
+          flash[:error] = _("You can't perform merging with same id number")
+          redirect_to :action => :edit , :id => params[:id]
+          return 
+        else
+          flash[:error] = _("Oops something wrong check the article if its exists!")
+          redirect_to :action => :edit, :id => params[:id]
+          return 
+        end
       else
-        flash[:error] = _("Oops something wrong check the article if its exists!")
-        redirect_to :action => :edit, :id => params[:id]
+        flash[:notice] = "You can not merge the articles!"
+        redirect_to :action => :index 
         return 
       end
     end
