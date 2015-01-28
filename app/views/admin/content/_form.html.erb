@@ -148,7 +148,7 @@
     </ul>
   </div>  
   <div class=''>
-  <% if params[:action]=='edit' %>
+  <% if params[:action]=='edit' && current_user.admin?%>
    <%= render 'merge'  %>
   <% end %>
   </div>  
