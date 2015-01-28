@@ -60,5 +60,10 @@ group :development, :test do
   gem 'cucumber-rails-training-wheels'
   gem 'database_cleaner'
   gem 'capybara'
+<<<<<<< HEAD
   gem 'launchy'
+=======
+  #gem 'debugger'
+>>>>>>> 017a06a9a9b178ce1ee65e4aa07880279b2ef3df
 end
+
