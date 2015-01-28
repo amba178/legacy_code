@@ -32,7 +32,7 @@
       <% benchmark "BENCHMARK: layout/sidebars" do %>
         <%= yield %>
       <% end %>
-      <%= debug(params) if Rails.env.development? %>
+     
       <%= link_to image_tag("powered.gif"),  "http://www.typosphere.org/", {:class => "powered" } %>
     </div>
   </div>
